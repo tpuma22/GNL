@@ -43,7 +43,7 @@ separada. El descriptor de archivo es el 2.
 OPEN - abre y o crea un archivo.
 
 int open(const char *ruta, int flags);
-int open(const char *ruta, int flags, mode_t modo);
+int open(const char *ruta, int flags, mode_t modo); <!-- int open ( char* nombre, int modo, int permisos ); -->
 Objetivo: La llamada al sistema open se utiliza para transformar una ruta de archivo a un
 descriptor de arhivo (un valor entero no negativo que se utiliza para identificar
 al archivo abierto).
