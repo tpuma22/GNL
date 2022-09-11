@@ -6,7 +6,7 @@
 /*   By: tpuma <tpuma@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 15:03:44 by tpuma             #+#    #+#             */
-/*   Updated: 2022/08/28 17:55:23 by tpuma            ###   ########.fr       */
+/*   Updated: 2022/09/11 11:48:14 by tpuma            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,22 @@
 char	*get_next_line(int fd)
 {
 char	*Text;
-char	*BUFFER;
+static char	*Aux[2000];
+char	*line;
+int		file;
 
-BUFFER = malloc((BUFFER_SIZE + 1) *sizeof(char)); //(char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))
-if (!Text)
-	/* return (printf("¡No se pudo abrir el archivo %s!", Text)); */
-	return (NULL);
+Aux = malloc((BUFFER_SIZE + 1) *sizeof(char)); //(char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))
+if (!Text || !Aux)
+	return (printf("No existe el archivo %s", Text));
+	/* return (NULL); */
 if (fd < 0 || fd == 2 || BUFFER_SIZE <= 0)
 	return (NULL);
+
+Aux =
+
+
+
+
 while (*Text != '\0')
 {
 	if (*Text == '\n')
@@ -35,13 +43,15 @@ free (BUEFFER);
 return (Text);
 }
 
+
 int	main (void)
 {
 	char cadena[2000];	//Depósito de los caracteres
 	int leidos;
+	int fichero;
 
 //    Apertura del fichero
-	int fichero = open ("No_te_rindas.txt", O_RDONLY);
+	fichero = open ("No_te_rindas.txt", O_RDONLY);
 //    Comprobación
 	if (fichero==-1)
 	{
@@ -51,10 +61,10 @@ int	main (void)
 
 //    Coloca el puntero en la posición 400
 	// lseek(fichero,0,SEEK_SET);
-	//Lee diez bytes
+	//Lee la cantidad de bytes que le indiquemos
 	leidos = read(fichero, cadena, 1999);
 	//Con mi función leo sólo lo que quiero
-	get_next_line(fichero);
+/* 	get_next_line(fichero); */
 	//Cierro el fichero
 	close(fichero);
 	//Libero memoria??????
