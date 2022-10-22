@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpuma <tpuma@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/21 15:03:44 by tpuma             #+#    #+#             */
-/*   Updated: 2022/10/22 18:37:38 by tpuma            ###   ########.fr       */
+/*   Created: 2022/10/22 15:46:35 by tpuma             #+#    #+#             */
+/*   Updated: 2022/10/22 18:36:22 by tpuma            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_read(int fd, char *str)
 {
-	ssize_t	rd;
+	int		rd;
 	char	*tmp;
 
 	tmp = malloc(sizeof (char) * (BUFFER_SIZE + 1));
@@ -29,8 +29,8 @@ char	*ft_read(int fd, char *str)
 			free(tmp);
 			return (0);
 		}
-		tmp[rd] = '\0';
-		str = ft_strjoin(str, tmp);
+	tmp[rd] = '\0';
+	str = ft_strjoin(str, tmp);
 	}
 	free(tmp);
 	return (str);
@@ -44,9 +44,9 @@ char	*ft_get_line(char *str)
 	i = 0;
 	if (!str[i])
 		return (0);
-	while (str[i] != '\n' && str[i])
+	while (str[i])
 		i++;
-	line = (char *)malloc (sizeof(char) * (i + 2));
+	line = malloc (sizeof(char) * (i + 1));
 	if (!line)
 		return (0);
 	i = 0;
@@ -75,16 +75,15 @@ char	*ft_save_line(char *str)
 		i++;
 	if (!str[i])
 	{
-		free(str);
+		free (str);
 		return (0);
 	}
-	tmp = (char *)malloc(sizeof (char) * (ft_strlen(str) - i + 1));
+	tmp = malloc(sizeof (char) * (ft_strlen(str) - i + 1));
 	if (!tmp)
 		return (0);
-	i++;
 	count = 0;
 	while (str[i])
-		tmp[count++] = str[i++];
+		tmp[count++] = str[++i];
 	tmp[count] = '\0';
 	free(str);
 	return (tmp);
@@ -92,43 +91,64 @@ char	*ft_save_line(char *str)
 
 char	*get_next_line(int fd)
 {
-	static char		*str;
+	static char		*str[FILES_MAX];
 	char			*line;
 
-	if (BUFFER_SIZE <= 0 || fd < 0)
+	if (BUFFER_SIZE <= 0 || fd < 0 || fd > FILES_MAX)
 		return (0);
-	str = ft_read(fd, str);
-	if (!str)
+	str[fd] = ft_read(fd, str[fd]);
+	if (!str[fd])
 		return (NULL);
-	line = ft_get_line(str);
-	str = ft_save_line(str);
+	line = ft_get_line(str[fd]);
+	str[fd] = ft_save_line(str[fd]);
 	return (line);
 }
 
 /* int	main(void)
 {
 	char	*line;
+	char	*line2;
+	char	*line3;
 	int		fd;
+	int		fd2;
+	int		fd3;
 	int		i;
 
-	fd = open("Neruda.txt", O_RDONLY);
+	fd = open("Benedetti.txt", O_RDONLY);
+	fd2 = open("Neruda.txt", O_RDONLY);
+	fd3 = open("Borges.txt", O_RDONLY);
 	i = 0;
 	line = 0;
+	line2 = 0;
+	line3 = 0;
 	line = get_next_line(fd);
-	printf("%s", line);
-	line = get_next_line(fd);
-	//printf("%s", line);
-	// line = get_next_line(fd);
-	// printf("%s", line);
-	// line = get_next_line(fd);
-	// printf("%s", line);
- 	while (line != NULL)
+	while (line != NULL)
 	{
 		printf("%s", line);
 		free(line);
 		line = get_next_line(fd);
 		i++;
 	}
-	//system("leaks a.out");
+	// printf("%s", line);
+	i = 0;
+	line2 = get_next_line(fd2);
+	while (line2 != NULL)
+	{
+		printf("%s", line2);
+		free(line2);
+		line2 = get_next_line(fd2);
+		i++;
+	}
+	// printf("%s", line2);
+	i = 0;
+	line3 = get_next_line(fd3);
+	while (line3 != NULL)
+	{
+		printf("%s", line3);
+		free(line3);
+		line3 = get_next_line(fd3);
+		i++;
+	}
+	//printf("%s", line3);
 	return (0);
 } */

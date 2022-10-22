@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpuma <tpuma@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/21 15:04:12 by tpuma             #+#    #+#             */
-/*   Updated: 2022/10/22 18:42:16 by tpuma            ###   ########.fr       */
+/*   Created: 2022/10/22 15:47:27 by tpuma             #+#    #+#             */
+/*   Updated: 2022/10/22 18:42:36 by tpuma            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
+/* Forma de definir una variable, la estructura es como un "if" interno */
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE
 # endif
@@ -32,7 +32,10 @@
 
 char	*get_next_line(int fd);
 char	*ft_read(int fd, char *str);
-size_t	ft_strlen(const char *str);
+/* Forma de definir una variable, usando el "if" previamente abierto*/
+# define FILES_MAX 4096
+
+size_t	ft_strlen(char *str);
 char	*ft_strchr(char *str, int c);
 char	*ft_strjoin(char *s1, char *s2);
 

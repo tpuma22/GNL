@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpuma <tpuma@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/21 15:04:17 by tpuma             #+#    #+#             */
-/*   Updated: 2022/10/22 15:35:14 by tpuma            ###   ########.fr       */
+/*   Created: 2022/10/22 15:52:31 by tpuma             #+#    #+#             */
+/*   Updated: 2022/10/22 15:52:33 by tpuma            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
-size_t	ft_strlen(const char *str)
+size_t	ft_strlen(char *str)
 {
 	size_t	i;
 
 	i = 0;
-	while (str[i] != '\0')
-	{
+	while (str[i])
 		i++;
-	}
 	return (i);
 }
 
@@ -57,15 +55,14 @@ char	*ft_strjoin(char *s1, char *s2)
 	}
 	if (!s1 || !s2)
 		return (NULL);
-	s3 = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	s3 = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!s3)
 		return (NULL);
-	if (s1)
-		while (s1[++i] != '\0')
-			s3[i] = s1[i];
-	while (s2[j] != '\0')
+	while (s1[++i])
+		s3[i] = s1[i];
+	while (s2[j])
 		s3[i++] = s2[j++];
-	s3[ft_strlen(s1) + ft_strlen(s2)] = '\0';
+	s3[i] = '\0';
 	free(s1);
 	return (s3);
 }
